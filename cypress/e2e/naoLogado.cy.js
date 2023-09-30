@@ -1,5 +1,8 @@
 describe('API - Profile', () => {
+
+    let urlPerfis = '/api/profile'
     
+    // DRY - Don't Repeat Yourself
     context('todos os perfis', () => {
         
         it('valida a API de perfis', () => {
@@ -8,7 +11,7 @@ describe('API - Profile', () => {
             cy.request({
 
                 method: 'GET',
-                url: '/api/profile'
+                url: urlPerfis
 
             // Resposta da api
             }).then(({ status, duration, body, headers }) => {
@@ -43,13 +46,16 @@ describe('API - Profile', () => {
     })
 
     context('perfil expecífico', () => {
+
+        let urlPerfil = '/api/profile/user'
+
         
         it('seleciona um usuário inválido', () => {
             
             cy.request({
 
                 method: 'GET',
-                url: '/api/profile/user/1',
+                url: `${urlPerfil}/1`,
 
                 // Informar para não exibir falhas nos retornos de API diferente de 200 e 300
                 failOnStatusCode: false
@@ -69,13 +75,13 @@ describe('API - Profile', () => {
             cy.request({
 
                 method: 'GET',
-                url: `/api/profile/user/${usuarioId}`
+                url: `${urlPerfil}/${usuarioId}`
 
             }).then(({ status, body }) => {
 
                 expect(status).to.eq(200)
                 expect(body.user.name).to.eq('Pedro Guerra')
-                
+
             })
         })
 
@@ -85,14 +91,14 @@ describe('API - Profile', () => {
             cy.request({
 
                 method: 'GET',
-                url: '/api/profile'
+                url: urlPerfis
 
             }).then(({ body }) => {
 
                 cy.request({
 
                     method: 'GET',
-                    url: `/api/profile/user/${body[1].user._id}`
+                    url: `${urlPerfil}/${body[1].user._id}`
 
                 }).then(({ status, body }) => {
 
