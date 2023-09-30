@@ -1,0 +1,21 @@
+{
+
+    "compilerOptions": {
+
+        "lib": ["ES2015", "DOM"],
+
+        "allowJs": true,
+
+        "noEmit": true,
+
+        "types": ["cypress"]
+
+    },
+
+    "include": [
+
+        "cypress/**/*.js", "cypress-file-upload"
+
+    ]
+
+}
